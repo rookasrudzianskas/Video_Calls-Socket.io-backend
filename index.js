@@ -5,6 +5,9 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 
+const roomId = 10;
+const userName = 'Rokas';
+
 app.get('/', (req, res) => {
     res.send('Hello World! 🔥')
 });
@@ -13,8 +16,6 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
     console.log("Someone have connected 🔥");
     socket.on('join-room', () => {
-        const roomId = 10;
-        const userName = 'Rokas';
         console.log("User joined the room");
         console.log(roomId);
         console.log(userName);
