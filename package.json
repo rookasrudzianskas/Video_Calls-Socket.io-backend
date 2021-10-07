@@ -1,0 +1,7 @@
+{
+  "name": "videoCallsKingdom-Backend",
+  "version": "1.0.0",
+  "description": "This is the backend for the video calls",
+  "main": "index.js",
+  "license": "MIT"
+}
