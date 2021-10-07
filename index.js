@@ -8,6 +8,24 @@ const io = new Server(server);
 const roomId = 10;
 const userName = 'Rokas';
 
+const users = [];
+
+const addUser = (userName, roomId) => {
+    users.push({
+        userName: userName,
+        roomId: roomId,
+    })
+}
+
+const getRoomUsers = (roomId) => {
+    return users.filter(user => (user.roomId === roomId));
+}
+
+const userLeave = (userName) => {
+    return users.filter(user => user.userName !== userName);
+}
+
+
 app.get('/', (req, res) => {
     res.send('Hello World! 🔥')
 });
@@ -15,10 +33,21 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
     console.log("Someone have connected 🔥");
-    socket.on('join-room', () => {
+    socket.on('join-room', ({}) => {
         console.log("User joined the room");
         console.log(roomId);
         console.log(userName);
+        socket.join(roomId);
+        addUser(userName, roomId);
+        socket.to(roomId).emit("user-connected", userName);
+
+        io.to(roomId).emit('all-users', getRoomUsers(roomId));
+        socket.on("disconnect", () => {
+            console.log("disconnected");
+            socket.leave(roomId);
+            userLeave(userName);
+            io.to(roomId).emit('all-users', getRoomUsers(roomId));
+        })
     });
 });
 
