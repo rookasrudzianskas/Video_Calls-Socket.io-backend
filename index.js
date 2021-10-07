@@ -8,7 +8,7 @@ const io = new Server(server);
 const roomId = 10;
 const userName = 'Rokas';
 
-const users = [];
+let users = [];
 
 const addUser = (userName, roomId) => {
     users.push({
@@ -22,7 +22,7 @@ const getRoomUsers = (roomId) => {
 }
 
 const userLeave = (userName) => {
-    return users.filter(user => user.userName !== userName);
+    users = users.filter(user => user.userName !== userName);
 }
 
 
