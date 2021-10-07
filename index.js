@@ -1,24 +1,26 @@
-const express = require('express')
+const express = require('express');
 const app = express();
-const server = require('http').Server(app);
-const io = require("socket.io")(server);
-
-const port = 3000;
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
 
 app.get('/', (req, res) => {
     res.send('Hello World! 🔥')
 });
 
 
-io.on('connection', socket => {
+io.on('connection', (socket) => {
     console.log("Someone have connected 🔥");
-    socket.on('join-room', ({roomId, userName}) => {
+    socket.on('join-room', () => {
+        const roomId = 10;
+        const userName = 'Rokas';
         console.log("User joined the room");
         console.log(roomId);
         console.log(userName);
     });
-})
+});
 
-app.listen(port, () => {
-    console.log(`App at http://localhost:${port} 🚀`)
-})
+server.listen(3000, () => {
+    console.log('listening on *:3000');
+});
