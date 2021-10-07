@@ -3,5 +3,9 @@
   "version": "1.0.0",
   "description": "This is the backend for the video calls",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^4.2.0"
+  }
 }
