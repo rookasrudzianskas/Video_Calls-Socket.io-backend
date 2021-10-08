@@ -41,6 +41,7 @@ io.on('connection', (socket) => {
         addUser(userName, roomId);
         socket.to(roomId).emit("user-connected", userName);
 
+
         io.to(roomId).emit('all-users', getRoomUsers(roomId));
         socket.on("disconnect", () => {
             console.log("disconnected");
